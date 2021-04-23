@@ -12,11 +12,18 @@ function clearFields() {
 $(document).ready(function () {
   $("#dollarsButton").click(event => {
     event.preventDefault();
-    let currencyAmount = $("#currencyInput").val();
+    let currencyAmount = $("#usDollars").val();
+    let country = $("#countryInput").val();
+    //^ you are here!
     clearFields();
     let promise = Currency.getExchange(currencyAmount);
     promise.then(function(response) {
       const body = JSON.parse(response);
+      Currency.getExchange().then(function(response) {
+        getConversions(response);
+      });
+
+
       $(".showConvertedCurrency").text(`${body.conversion_rates}`);
     }, function(error) {
       $(".showErrors").text(`There was an error processing your request: ${error}`);
