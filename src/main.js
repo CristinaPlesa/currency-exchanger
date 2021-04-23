@@ -14,7 +14,7 @@ $(document).ready(function () {
     event.preventDefault();
     let currencyAmount = $("#usDollars").val();
     let country = $("#countryInput").val();
-    //^ you are here!
+    //^ you are here! Might have to maybe move this???
     clearFields();
     let promise = Currency.getExchange(currencyAmount);
     promise.then(function(response) {
