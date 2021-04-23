@@ -5,3 +5,7 @@ body {
   margin: 0 auto;
   font-family: monaco;
 }
+
+.container {
+  margin-top: 80px;
+}
