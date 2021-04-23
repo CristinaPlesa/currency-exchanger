@@ -5,8 +5,8 @@ import "./css/styles.css";
 import Currency from "./js/currency.js";
 
 function clearFields() {
-  $("#currencyInput").val("");
-  $("#showCurrency").text(" ");
+  $(".showConvertedCurrency").text(" ");
+  $(".showErrors").text(" ");
 }
 
 $(document).ready(function () {
@@ -17,10 +17,15 @@ $(document).ready(function () {
     let promise = Currency.getExchange(currencyAmount);
     promise.then(function(response) {
       const body = JSON.parse(response);
-      $("#showCurrency").text(`${body.conversion_rates}`)
-    })
-  })
-})
+      $(".showConvertedCurrency").text(`${body.conversion_rates}`);
+    }, function(error) {
+      $(".showErrors").text(`There was an error processing your request: ${error}`);
+    });
+  });
+});
+
+// add functionality in UI and html elements to also take user's choice of desired currency and then display it back converted.
+
 
 // function displayExample(photoArray) {
 //   let photoHTML = ``;
