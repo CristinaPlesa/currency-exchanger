@@ -25,6 +25,9 @@ $(document).ready(function () {
 });
 
 // add functionality in UI and html elements to also take user's choice of desired currency and then display it back converted.
+// 1. add currencies to query q=
+// 2. write function that multiples queury number and inputUSCurrency to get back convertedCurrencies
+// 3. connect results to UI display or other function: example user will input romanian, #2 function will multiple RON property from json block then, that value needs to be input back in the Romanian currency display. SO, maybe const Romania = ${body.current-currencies.RON}, and then take romania variable and display that to user as Romania not RON
 
 
 // function displayExample(photoArray) {
