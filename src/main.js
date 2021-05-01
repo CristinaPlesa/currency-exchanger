@@ -9,22 +9,41 @@ function clearFields() {
   $(".showErrors").text(" ");
 }
 
+function getCountry(userCountry) {
+  if (userCountry === "Romania") {
+    return "RON"
+  } else if (userCountry === "Mexico") {
+    return "MXN"
+  } else if (userCountry === "Sweden") {
+    return "SEK"
+  } else if (userCountry === "Moldova") {
+    return "MDL"
+  } else if (userCountry === "Brazil") {
+    return "BRL"
+  } else {
+    // throw an error!!
+    // "Error: This is not a supported Country for currency conversion. Please enter an available Country"
+  }
+}
+
+function getConversion(currencyAmount, value) {
+  let conversion = parseInt(currencyAmount) * value;
+  return conversion;
+}
+
 $(document).ready(function () {
   $("#dollarsButton").click(event => {
     event.preventDefault();
     let currencyAmount = $("#usDollars").val();
     let country = $("#countryInput").val();
-    //^ you are here! Might have to maybe move this???
     clearFields();
-    let promise = Currency.getExchange(currencyAmount);
+    let promise = Currency.getExchange();
     promise.then(function(response) {
       const body = JSON.parse(response);
-      Currency.getExchange().then(function(response) {
-        getConversions(response);
-      });
-
-
-      $(".showConvertedCurrency").text(`${body.conversion_rates}`);
+      let countryId = getCountry(country);
+      let countryValue = body.conversion_rates[countryId];
+      let finalConversion = getConversion(currencyAmount, countryValue);
+      $(".showConvertedCurrency").text(`${country} currency: ${finalConversion}`);
     }, function(error) {
       $(".showErrors").text(`There was an error processing your request: ${error}`);
     });
@@ -35,31 +54,3 @@ $(document).ready(function () {
 // 1. add currencies to query q=
 // 2. write function that multiples queury number and inputUSCurrency to get back convertedCurrencies
 // 3. connect results to UI display or other function: example user will input romanian, #2 function will multiple RON property from json block then, that value needs to be input back in the Romanian currency display. SO, maybe const Romania = ${body.current-currencies.RON}, and then take romania variable and display that to user as Romania not RON
-
-
-// function displayExample(photoArray) {
-//   let photoHTML = ``;
-//   if (photoArray.photos) {
-//     // conditional example with looping through nested json object > then array
-//     for (let i = 0; i <= 99; i += 10) {
-//       photoHTML += `<img src=${photoArray.photos[i].img_src}>`;
-//     }
-//     $(".displayPhotos").html(photoHTML);
-//   } else {
-//     $(".showErrors").text(`There was an error: ${photoArray.message}`);
-//   }
-// }
-
-// $(document).ready(function () {
-//   let promise = Example.promiseExample();
-//   promise.then(function (response) {
-//     const body = JSON.parse(response);
-//     $(".apod").html(`<img src=${body.url}>`);
-//     $(".explanation").text(`${body.explanation}`);
-//   });
-//   AnotherExample.fetchExample().then(function (response) {
-//     const url = response.collection.items[2].href.replaceAll(" ", "%20");
-//     console.log(url);
-//     $(".video").html(`<video controls> <source src=${url} type="video/mp4"></video>`);
-//   });
-// });
