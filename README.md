@@ -1,18 +1,19 @@
-# Title
-
-#### _{Brief description of application}_
+# Currency Exchanger
 
 #### By Cristina Plesa
+
+#### Application that uses an API call to request active currency rates compared to the US dollar. It returns back the converted currency rate to the user.
+
 
 ## Technologies Used
 
 * Javascript
-* 
-* 
-
-## Description
-
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
+* HTML
+* JQuery
+* webpack
+* Node
+* Bootstrap
+* CSS
 
 ## Setup and Use
 
@@ -21,20 +22,23 @@ _{This is a detailed description of your application. Give as much detail as nee
 * A text editor like [VS Code](https://code.visualstudio.com/)
 
 ### Installation
-1. Clone the repository: `$ git clone https://github.com/account/galactic-age`
-2. Navigate to the `galactic-age/` directory on your computer
+1. Clone the repository: `$ git clone https://github.com/CristinaPlesa/currency-exchanger`
+2. Navigate to the `currency-exchanger/` directory on your computer
 3. Open with your preferred text editor to view the code base
-4. To start a development server and view the project in the browser:
-    * Navigate to `galactic-age/` in your command line
+4. Once the project is open in your text editor, set up an API key:
+    * Go to ExchangeRate API: https://www.exchangerate-api.com/
+    * Enter your email address and click "Get Free Key" (email will need confirmation)
+    * Copy your unique API into a new file called .env (in your project's root directory)
+    * The API key format should look like this in your .env file: API_KEY=yourAPIkey
+5. To start a development server and view the project in the browser:
+    * Navigate to `currency-exchanger/` in your command line
     * Run the command `npm install` to install dependencies
     * Optionally, run the commmand `npm run build` to make a bundle of the files
     * Finally, run the command `npm run start` to start a development server
-5. To run tests, navigate to `galactic-age/` in your terminal and run the command `npm run test`
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* 
 
 ## License
 
