@@ -45,17 +45,20 @@ $(document).ready(function () {
     let promise = Currency.getExchange();
     promise.then(function(response) {
       const body = JSON.parse(response);
-      let countryId = getCountry(country);
-      let countryConversionValue = body.conversion_rates[countryId];
-      let finalConversion = getConversion(currencyAmount, countryConversionValue);
-      $(".showUSCurrency").text(`US dollar currency: ${currencyAmount}`);
-      $(".showConvertedCurrency").text(`${country} currency: ${finalConversion}`);
-      $(".showErrors").text(" ");
+      if (body.result !== "error") {
+        let countryId = getCountry(country);
+        let countryConversionValue = body.conversion_rates[countryId];
+        let finalConversion = getConversion(currencyAmount, countryConversionValue);
+        $(".showUSCurrency").text(`US dollar currency: ${currencyAmount}`);
+        $(".showConvertedCurrency").text(`${country} currency: ${finalConversion}`);
+        $(".showErrors").text(" ");
+      } else {
+        $(".showErrors").text(`Error: ${body["error-type"]}!`);
+      }
     }, function(error) {
       $(".showUSCurrency").text(" ");
       $(".showConvertedCurrency").text(" ");
-      $(".showErrors").text(`There was an error processing your request: ${error.body["error-type"]}`);
-      console.log(error.body["error-type"]);
+      $(".showErrors").text(`There was an error processing your request: ${error}`);
     });
   });
 });
