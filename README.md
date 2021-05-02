@@ -4,7 +4,6 @@
 
 #### Application that uses an API call to request active currency rates compared to the US dollar. It returns back the converted currency rate to the user.
 
-
 ## Technologies Used
 
 * Javascript
@@ -38,7 +37,7 @@
 
 ## Known Bugs
 
-* 
+* No known bugs
 
 ## License
 
