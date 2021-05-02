@@ -5,8 +5,12 @@ import "./css/styles.css";
 import Currency from "./js/currency.js";
 
 function clearFields() {
+  $(".showUSCurrency").text(" ");
   $(".showConvertedCurrency").text(" ");
   $(".showErrors").text(" ");
+  $(".showCountryTypoError").text(" ");
+  $(".showUSCurrency").show();
+  $(".showConvertedCurrency").show();
 }
 
 function getCountry(userCountry) {
@@ -21,8 +25,9 @@ function getCountry(userCountry) {
   } else if (userCountry === "Brazil") {
     return "BRL"
   } else {
-    // throw an error!!
-    // "Error: This is not a supported Country for currency conversion. Please enter an available Country"
+    $(".showCountryTypoError").text(`Error: This is not a supported Country for currency conversion. Please enter an available Country`);
+    $(".showUSCurrency").hide();
+    $(".showConvertedCurrency").hide();
   }
 }
 
@@ -41,16 +46,16 @@ $(document).ready(function () {
     promise.then(function(response) {
       const body = JSON.parse(response);
       let countryId = getCountry(country);
-      let countryValue = body.conversion_rates[countryId];
-      let finalConversion = getConversion(currencyAmount, countryValue);
+      let countryConversionValue = body.conversion_rates[countryId];
+      let finalConversion = getConversion(currencyAmount, countryConversionValue);
+      $(".showUSCurrency").text(`US dollar currency: ${currencyAmount}`);
       $(".showConvertedCurrency").text(`${country} currency: ${finalConversion}`);
+      $(".showErrors").text(" ");
     }, function(error) {
-      $(".showErrors").text(`There was an error processing your request: ${error}`);
+      $(".showUSCurrency").text(" ");
+      $(".showConvertedCurrency").text(" ");
+      $(".showErrors").text(`There was an error processing your request: ${error.body["error-type"]}`);
+      console.log(error.body["error-type"]);
     });
   });
 });
-
-// add functionality in UI and html elements to also take user's choice of desired currency and then display it back converted.
-// 1. add currencies to query q=
-// 2. write function that multiples queury number and inputUSCurrency to get back convertedCurrencies
-// 3. connect results to UI display or other function: example user will input romanian, #2 function will multiple RON property from json block then, that value needs to be input back in the Romanian currency display. SO, maybe const Romania = ${body.current-currencies.RON}, and then take romania variable and display that to user as Romania not RON
